@@ -2,13 +2,17 @@ terraform {
   required_version = ">= 0.12.20"
   required_providers {
     tss = {
-      source  = "terraform.thycotic.com/thycotic/tss"
-      version = "~> 1.0"
+      source  = "terraform.nhn.no/norskhelsenett/tss"
+      version = "~> 0.1"
     }
   }
 }
 
 variable "tss_username" {
+  type = string
+}
+
+variable "tss_domain" {
   type = string
 }
 
@@ -27,6 +31,7 @@ variable "tss_secret_id" {
 provider "tss" {
   username   = var.tss_username
   password   = var.tss_password
+  domain     = var.tss_domain
   server_url = var.tss_server_url
 }
 

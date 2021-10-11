@@ -2,14 +2,14 @@
 
 The [Thycotic](https://thycotic.com/) [Secret Server](https://thycotic.com/products/secret-server/) [Terraform](https://www.terraform.io/) Provider allows you to access and reference Secrets in your vault for use in Terraform configurations.
 
-This is a fork of Thycotic's provider incorporating the changes made by Dan Hale to support Secret Server installations using the Domain-field.
+This is a fork of Thycotic's own provider incorporating the changes made by Dan Hale to support Secret Server installations using the Domain-field.
 It currently depends on Dan's TSS SDK repository, but will use Thycotic's once Dan's PR is merged, sometime in the future.
 
 ## Install via Registry
 
 > Preferred way to install
 
-The latest release can be [downloaded from the terraform registry](https://registry.terraform.io/providers/thycotic/tss/latest). The documentation can be found [here](https://registry.terraform.io/providers/thycotic/tss/latest/docs).
+The latest release can be [downloaded from the terraform registry](https://registry.terraform.io/providers/norskhelsenett/tss/latest). The documentation can be found [here](https://registry.terraform.io/providers/norskhelsenett/tss/latest/docs).
 
 If wish to install straight from source, follow the steps below.
 
@@ -33,10 +33,10 @@ Terraform 0.13 uses a different file system layout for 3rd party providers. More
 
 ```text
 %APPDATA%\TERRAFORM.D\PLUGINS
-└───terraform.thycotic.com
-    └───thycotic
+└───terraform.nhn.no
+    └───norskhelsenett
         └───tss
-            └───1.0.2
+            └───0.1.0
                 └───windows_amd64
 ```
 
@@ -44,10 +44,10 @@ Terraform 0.13 uses a different file system layout for 3rd party providers. More
 
 ```text
 ~/.terraform.d/plugins
-└───terraform.thycotic.com
-    └───thycotic
+└───terraform.nhn.no
+    └───norskhelsenett
         └───tss
-            └───1.0.2
+            └───0.1.0
                 ├───linux_amd64
 ```
 
@@ -59,8 +59,8 @@ For Terraform 0.13+, include the `terraform` block in your configuration, or pla
 terraform {
   required_providers {
     tss = {
-      source = "thycotic/tss"
-      version = "1.0.2"
+      source = "norskhelsenett/tss"
+      version = "0.1.0"
     }
   }
 }
@@ -71,6 +71,7 @@ To run the example, create a `terraform.tfvars`:
 ```json
 tss_username   = "my_app_user"
 tss_password   = "Passw0rd."
+tss_domain     = "foo.bar"
 tss_server_url = "https://example/SecretServer"
 tss_secret_id  = "1"
 ```

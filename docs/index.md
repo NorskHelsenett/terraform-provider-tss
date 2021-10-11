@@ -18,7 +18,7 @@ For Terraform 0.13+, include the `terraform` block in your configuration or plan
 terraform {
     required_providers {
         tss = {
-            source = "terraform.thycotic.com/thycotic/tss"
+            source = "terraform.nhn.no/norskhelsenett/tss"
             version = "~> 1.0"
         }
     }
@@ -30,6 +30,7 @@ To run the example, create a `terraform.tfvars`:
 ```json
 tss_username   = "my_app_user"
 tss_password   = "Passw0rd."
+tss_domain     = "foo.bar"
 tss_server_url = "https://localhost/SecretServer"
 tss_secret_id  = "1"
 ```
@@ -39,3 +40,7 @@ tss_secret_id  = "1"
 - **password** (String) The password of the Secret Server User
 - **server_url** (String) The Secret Server base URL e.g. https://localhost/SecretServer
 - **username** (String) The username of the Secret Server User to connect as
+
+### Optional
+
+- **domain** (String) The domain of the Secret Server User
