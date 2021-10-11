@@ -40,7 +40,7 @@ func Provider() *schema.Provider {
 			},
 			"domain": {
                                 Type:        schema.TypeString,
-                                Required:    false,
+                                Optional:    true,
                                 Description: "The domain of the Secret Server User",
                         },
 		},

@@ -36,7 +36,7 @@ Terraform 0.13 uses a different file system layout for 3rd party providers. More
 └───terraform.nhn.no
     └───norskhelsenett
         └───tss
-            └───0.1.0
+            └───0.1.1
                 └───windows_amd64
 ```
 
@@ -47,7 +47,7 @@ Terraform 0.13 uses a different file system layout for 3rd party providers. More
 └───terraform.nhn.no
     └───norskhelsenett
         └───tss
-            └───0.1.0
+            └───0.1.1
                 ├───linux_amd64
 ```
 
