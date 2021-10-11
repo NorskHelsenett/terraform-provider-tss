@@ -10,6 +10,8 @@ description: |-
 
 The [Thycotic](https://thycotic.com/) [Secret Server](https://thycotic.com/products/secret-server/) [Terraform](https://www.terraform.io/) Provider allows you to access and reference Secrets in your vault for use in Terraform configurations.
 
+This is a fork of the Thycotic provider which includes functionality to specify domain along with the credentials.
+
 ## Example Usage
 
 For Terraform 0.13+, include the `terraform` block in your configuration or plan to that specifies the provider:
@@ -18,8 +20,8 @@ For Terraform 0.13+, include the `terraform` block in your configuration or plan
 terraform {
     required_providers {
         tss = {
-            source = "terraform.nhn.no/norskhelsenett/tss"
-            version = "~> 1.0"
+            source = "norskhelsenett/tss"
+            version = "~> 0.1.2"
         }
     }
 }

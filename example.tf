@@ -2,8 +2,8 @@ terraform {
   required_version = ">= 0.12.20"
   required_providers {
     tss = {
-      source  = "terraform.nhn.no/norskhelsenett/tss"
-      version = "~> 0.1"
+      source  = "norskhelsenett/tss"
+      version = "~> 0.1.2"
     }
   }
 }
