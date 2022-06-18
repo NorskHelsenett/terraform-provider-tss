@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/danhale-git/tss-sdk-go/server"
+	"github.com/thycotic/tss-sdk-go/server"
 )
 
 func providerConfig(d *schema.ResourceData) (interface{}, error) {
@@ -11,8 +11,8 @@ func providerConfig(d *schema.ResourceData) (interface{}, error) {
 		Credentials: server.UserCredential{
 			Username: d.Get("username").(string),
 			Password: d.Get("password").(string),
+		        Domain: d.Get("domain").(string),
 		},
-		Domain: d.Get("domain").(string),
 	}, nil
 }
 
