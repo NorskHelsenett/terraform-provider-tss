@@ -2,7 +2,9 @@
 
 The [Thycotic](https://thycotic.com/) [Secret Server](https://thycotic.com/products/secret-server/) [Terraform](https://www.terraform.io/) Provider allows you to access and reference Secrets in your vault for use in Terraform configurations.
 
-This is a fork of Thycotic's own provider incorporating the changes made in newer versions of the TSS SDK for Go to support using the Domain-attribute in the user credentials.
+This is a fork of Thycotic's own provider, with the following improvements:
+* Incorporates the changes made in newer versions of the TSS SDK for Go to support using the Domain-attribute in the user credentials
+* Rewritten to use Terraform Provider SDK v2
 
 ## Install via Registry
 
@@ -12,7 +14,7 @@ The latest release can be [downloaded from the terraform registry](https://regis
 
 If wish to install straight from source, follow the steps below.
 
-## Install form Source
+## Install from Source
 
 ### Terraform 0.12 and earlier
 

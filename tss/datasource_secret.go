@@ -1,21 +1,28 @@
-package main
+package tss
 
 import (
-	"fmt"
+	"context"
+	//"fmt"
 	"log"
 	"strconv"
 
-	"github.com/hashicorp/terraform/helper/schema"
+        "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/thycotic/tss-sdk-go/server"
 )
 
-func dataSourceSecretRead(d *schema.ResourceData, meta interface{}) error {
+func dataSourceSecretRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	id := d.Get("id").(int)
 	field := d.Get("field").(string)
+
+	// Warning or errors can be collected in a slice type
+	var diags diag.Diagnostics
+
 	secrets, err := server.New(meta.(server.Configuration))
 
 	if err != nil {
 		log.Printf("[DEBUG] configuration error: %s", err)
+                return diag.FromErr(err)
 	}
 	log.Printf("[DEBUG] getting secret with id %d", id)
 
@@ -23,7 +30,7 @@ func dataSourceSecretRead(d *schema.ResourceData, meta interface{}) error {
 
 	if err != nil {
 		log.Print("[DEBUG] unable to get secret", err)
-		return err
+		return diag.FromErr(err)
 	}
 
 	d.SetId(strconv.Itoa(secret.ID))
@@ -34,12 +41,13 @@ func dataSourceSecretRead(d *schema.ResourceData, meta interface{}) error {
 		d.Set("value", value)
 		return nil
 	}
-	return fmt.Errorf("the secret does not contain a '%s' field", field)
+	diags = append(diags, diag.Errorf("the secret does not contain a '%s' field", field)...)
+	return diags
 }
 
 func dataSourceSecret() *schema.Resource {
 	return &schema.Resource{
-		Read: dataSourceSecretRead,
+		ReadContext: dataSourceSecretRead,
 
 		Schema: map[string]*schema.Schema{
 			"value": {

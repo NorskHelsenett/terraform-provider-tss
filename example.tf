@@ -3,7 +3,7 @@ terraform {
   required_providers {
     tss = {
       source  = "norskhelsenett/tss"
-      version = "~> 0.1.3"
+      version = "~> 0.2.0"
     }
   }
 }
