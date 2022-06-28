@@ -28,7 +28,7 @@ func dataSourceSecretRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	secret, err := secrets.Secret(id)
 
-	if err != nil {
+	if err != nil { 
 		log.Print("[DEBUG] unable to get secret", err)
 		return diag.FromErr(err)
 	}

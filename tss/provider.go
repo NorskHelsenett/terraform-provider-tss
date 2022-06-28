@@ -1,24 +1,33 @@
 package tss
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/thycotic/tss-sdk-go/server"
 )
 
-func providerConfig(d *schema.ResourceData) (interface{}, error) {
+func providerConfig(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
+	// Warning or errors can be collected in a slice type
+	var diags diag.Diagnostics
+
 	return server.Configuration{
 		ServerURL: d.Get("server_url").(string),
 		Credentials: server.UserCredential{
 			Username: d.Get("username").(string),
 			Password: d.Get("password").(string),
-		        Domain: d.Get("domain").(string),
+			Domain:   d.Get("domain").(string),
 		},
-	}, nil
+	}, diags
 }
 
 // Provider is a Terraform DataSource
 func Provider() *schema.Provider {
 	return &schema.Provider{
+		ResourcesMap: map[string]*schema.Resource{
+			"tss_secret": resourceSecret(),
+		},
 		DataSourcesMap: map[string]*schema.Resource{
 			"tss_secret": dataSourceSecret(),
 		},
@@ -39,11 +48,11 @@ func Provider() *schema.Provider {
 				Description: "The password of the Secret Server User",
 			},
 			"domain": {
-                                Type:        schema.TypeString,
-                                Optional:    true,
-                                Description: "The domain of the Secret Server User",
-                        },
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: "The domain of the Secret Server User",
+			},
 		},
-		ConfigureFunc: providerConfig,
+		ConfigureContextFunc: providerConfig,
 	}
 }
