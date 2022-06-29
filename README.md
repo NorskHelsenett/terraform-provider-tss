@@ -37,7 +37,7 @@ Terraform 0.13 uses a different file system layout for 3rd party providers. More
 └───terraform.nhn.no
     └───norskhelsenett
         └───tss
-            └───0.2.1
+            └───0.3.0
                 └───windows_amd64
 ```
 
@@ -48,7 +48,7 @@ Terraform 0.13 uses a different file system layout for 3rd party providers. More
 └───terraform.nhn.no
     └───norskhelsenett
         └───tss
-            └───0.2.1
+            └───0.3.0
                 ├───linux_amd64
 ```
 
@@ -61,7 +61,7 @@ terraform {
   required_providers {
     tss = {
       source = "norskhelsenett/tss"
-      version = "0.2.1"
+      version = "0.3.0"
     }
   }
 }
