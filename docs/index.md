@@ -11,6 +11,7 @@ description: |-
 The [Thycotic](https://thycotic.com/) [Secret Server](https://thycotic.com/products/secret-server/) [Terraform](https://www.terraform.io/) Provider allows you to access and reference Secrets in your vault for use in Terraform configurations.
 
 This is a fork of the Thycotic provider which includes functionality to specify domain along with the credentials.
+Also adds the possibility to create secrets, not just read existing ones.
 
 ## Example Usage
 
