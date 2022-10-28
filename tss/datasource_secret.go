@@ -2,13 +2,13 @@ package tss
 
 import (
 	"context"
-	//"fmt"
 	"log"
 	"strconv"
 
-        "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/thycotic/tss-sdk-go/server"
+
+	"github.com/vidarno/tss-sdk-go/v2/server"
 )
 
 func dataSourceSecretRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -22,13 +22,13 @@ func dataSourceSecretRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if err != nil {
 		log.Printf("[DEBUG] configuration error: %s", err)
-                return diag.FromErr(err)
+		return diag.FromErr(err)
 	}
 	log.Printf("[DEBUG] getting secret with id %d", id)
 
 	secret, err := secrets.Secret(id)
 
-	if err != nil { 
+	if err != nil {
 		log.Print("[DEBUG] unable to get secret", err)
 		return diag.FromErr(err)
 	}

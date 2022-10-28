@@ -5,7 +5,8 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/thycotic/tss-sdk-go/server"
+
+	"github.com/vidarno/tss-sdk-go/v2/server"
 )
 
 func providerConfig(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {

@@ -8,7 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
-	"github.com/thycotic/tss-sdk-go/server"
+	"github.com/vidarno/tss-sdk-go/v2/server"
 )
 
 func resourceSecret() *schema.Resource {
@@ -36,6 +36,11 @@ func resourceSecret() *schema.Resource {
 				Optional: true,
 			},
 			"all_fields": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				Default:  false,
+			},
+			"avoid_duplicate": {
 				Type:     schema.TypeBool,
 				Optional: true,
 				Default:  false,
@@ -69,7 +74,6 @@ func resourceSecret() *schema.Resource {
 		},
 	}
 }
-
 
 func resourceSecretCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	tflog.Debug(ctx, "At beginning of function resourceSecretCreate")
@@ -113,6 +117,33 @@ func resourceSecretCreate(ctx context.Context, d *schema.ResourceData, m interfa
 		}
 
 		secretModel.Fields[i].ItemValue, _ = fieldMap["field_value"].(string)
+	}
+
+	avoid_duplicate, _ := d.Get("avoid_duplicate").(bool)
+	if avoid_duplicate {
+
+		matchingSecrets, _ := tss.Secrets(secretModel.Name, "")
+		if len(matchingSecrets) != 0 {
+			tflog.Debug(ctx, "found matching Secrets")
+			var duplicateSecrets []server.Secret
+			for _, foundSecret := range matchingSecrets {
+				if foundSecret.SiteID == secretModel.SiteID &&
+					foundSecret.FolderID == secretModel.FolderID &&
+					foundSecret.SecretTemplateID == secretModel.SecretTemplateID {
+					duplicateSecrets = append(duplicateSecrets, foundSecret)
+				}
+			}
+			if len(duplicateSecrets) == 1 {
+				tflog.Debug(ctx, "found exactly 1 duplicate Secret")
+				d.SetId(strconv.Itoa(duplicateSecrets[0].ID))
+				tflog.Debug(ctx, "In function resourceSecretCreate, going to call resourceSecretRead")
+
+				resourceSecretRead(ctx, d, m)
+
+				return diags
+
+			}
+		}
 	}
 
 	newSecret, err := tss.CreateSecret(*secretModel)
