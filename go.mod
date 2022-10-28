@@ -11,4 +11,4 @@ require (
 
 replace github.com/NorskHelsenett/terraform-provider-tss/tss => ./tss
 
-go 1.13
+go 1.18
