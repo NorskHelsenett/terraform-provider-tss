@@ -19,6 +19,7 @@ resource "tss_secret" "mysecret" {
   secret_template_id = 2
   folder_id = 1
   all_fields = false
+  avoid_duplicate = false
   fields {
     field_name = "Password"
     field_value = "secretpassword"
@@ -33,6 +34,7 @@ resource "tss_secret" "mysecret" {
 * `secret_template_id` - Required
 * `folder_id` - Required
 * `all_fields` - (Optional) Defaults to false. If set to true the provider will fetch all fields when refreshing state, otherwise the default behaviour is to only care about the fields provided in the fields-block.
+* `avoid_duplicate` - (Optional) Defaults to false. If set to true the provider will try to find a secret with the same name in the same folder (and the same Site as defined in the provider-configuration) as you provided. If it finds exactly one it will just re-use that ID instead of creating another secret.
 * `fields` - (Required) Every tss_secret resource must have at least 1 fields-block
 
 Fields-block:

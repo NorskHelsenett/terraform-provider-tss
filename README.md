@@ -1,10 +1,16 @@
 # Thycotic Secret Server - Terraform Provider
 
-The [Thycotic](https://thycotic.com/) [Secret Server](https://thycotic.com/products/secret-server/) [Terraform](https://www.terraform.io/) Provider allows you to access and reference Secrets in your vault for use in Terraform configurations.
+This [Thycotic](https://thycotic.com/) [Secret Server](https://thycotic.com/products/secret-server/) [Terraform](https://www.terraform.io/) Provider allows you to access or create Secrets in your vault for use in Terraform configurations.
 
-This is a fork of Thycotic's own provider, with the following improvements:
+This is a fork of Thycotics's original Secret Server provider,with the following improvements:
 * Incorporates the changes made in newer versions of the TSS SDK for Go to support using the Domain-attribute in the user credentials
 * Rewritten to use Terraform Provider SDK v2
+* Adds the possibility to create secrets, not just read existing ones.
+* You can optionally avoid duplicates (will re-use an exisiting secret with the same name, site and folder you provided in your resource)
+
+Please note that Thycotic is now Delinea. This provider uses a modified version of the Delinea TSS SDK for GO under the hood.
+
+
 
 ## Install via Registry
 
