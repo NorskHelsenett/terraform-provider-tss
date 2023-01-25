@@ -40,17 +40,20 @@ func Provider() *schema.Provider {
 			"username": {
 				Type:        schema.TypeString,
 				Required:    true,
-				Description: "The username of the Secret Server User to connect as",
+				DefaultFunc: schema.EnvDefaultFunc("TSS_USERNAME", nil),  
+				Description: "The username of the Secret Server User to connect as. Can be specified using the TSS_USERNAME environment variable.",
 			},
 			"password": {
 				Type:        schema.TypeString,
 				Required:    true,
-				Description: "The password of the Secret Server User",
+				DefaultFunc: schema.EnvDefaultFunc("TSS_PASSWORD", nil), 
+				Description: "The password of the Secret Server User. Can be specified using the TSS_PASSWORD environment variable.",
 			},
 			"domain": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				Description: "The domain of the Secret Server User",
+				DefaultFunc: schema.EnvDefaultFunc("TSS_USER_DOMAIN", nil), 
+				Description: "The domain of the Secret Server User. Can be specified using the TSS_USER_DOMAIN environment variable",
 			},
 		},
 		ConfigureContextFunc: providerConfig,
